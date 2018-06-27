@@ -1,0 +1,32 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    ¡Bienvenido a Angular y Firebase!
+  </h1>
+</div>
+<div *ngIf="afAuth.user | async as user; else showLogin">
+  <h1>Hola {{ user.displayName }}!</h1>
+  <button (click)="logout()">Cerrar sesion</button>
+</div>
+<ng-template #showLogin>
+  <p>Inicia sesion</p>
+  <button (click)="login()">Iniciar con Google</button>
+</ng-template>
+
+<form #partidoForm="ngForm" (ngSubmit)="guardar(local.value, visitante.value, ganador.value, marcadorLocal.value, marcadorVisitante.value); 
+partidoForm.reset();" >
+  <input required type="text" #local="ngModel" ngModel name="local" placeholder="Local" />
+  <input required type="text" #visitante="ngModel" ngModel name="visitante" placeholder="Visitante" />
+  <input type="text" #ganador="ngModel" ngModel name="ganador" placeholder="Gnaador" />
+  <input required type="number" min="0" step="1" #marcadorLocal="ngModel" ngModel name="marcadorLocal" placeholder="Marcador Local" />
+  <input required type="number" min="0" step="1" #marcadorVisitante="ngModel" ngModel name="marcadorVisitante" placeholder="Marcador Visitante" />
+  <button type="submit" [disabled]="partidoForm.invalid"  >Guardar</button>
+</form>
+
+<ul>
+  <li *ngFor="let partido of partidos | async" >
+    <h2>{{ partido.local }} VS {{ partido.visitante }}</h2>
+    <h3>Resultado: {{ partido.marcador_local }} - {{ partido.marcador_visitante }}</h3>
+    <h2>Ganador: {{ partido.ganador }}</h2>
+  </li>
+</ul>
