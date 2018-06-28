@@ -13,6 +13,8 @@
   <button (click)="login()">Iniciar con Google</button>
 </ng-template>
 
+<h1>Firebase Realtime Database</h1>
+
 <form #partidoForm="ngForm" (ngSubmit)="guardar(local.value, visitante.value, ganador.value, marcadorLocal.value, marcadorVisitante.value); 
 partidoForm.reset();" >
   <input required type="text" #local="ngModel" ngModel name="local" placeholder="Local" />
@@ -30,3 +32,23 @@ partidoForm.reset();" >
     <h2>Ganador: {{ partido.ganador }}</h2>
   </li>
 </ul>
+
+<h1>FIREStore</h1>
+
+<ul>
+  <li >
+    <h2>{{ (item | async)?.local }} VS {{ (item | async)?.visitante }}</h2>
+    <h3>Resultado: {{ (item | async)?.marcador_local }} - {{ (item | async)?.marcador_visitante }}</h3>
+    <h2>Ganador: {{ (item | async)?.ganador }}</h2>
+  </li>
+</ul>
+
+<form #storeForm="ngForm" (ngSubmit)="updateItem(local2.value, visitante2.value, ganador2.value, marcadorLocal2.value, marcadorVisitante2.value); 
+storeForm.reset();" >
+  <input required type="text" #local2="ngModel" ngModel name="local2" placeholder="Local" />
+  <input required type="text" #visitante2="ngModel" ngModel name="visitante2" placeholder="Visitante" />
+  <input type="text" #ganador2="ngModel" ngModel name="ganador2" placeholder="Ganador" />
+  <input required type="number" min="0" step="1" #marcadorLocal2="ngModel" ngModel name="marcadorLocal2" placeholder="Marcador Local" />
+  <input required type="number" min="0" step="1" #marcadorVisitante2="ngModel" ngModel name="marcadorVisitante2" placeholder="Marcador Visitante" />
+  <button type="submit" [disabled]="storeForm.invalid"  >Guardar</button>
+</form>
